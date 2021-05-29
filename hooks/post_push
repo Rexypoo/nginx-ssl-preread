@@ -17,14 +17,14 @@ push_tags () {
 case $SOURCE_BRANCH in
     "1.21.0")
         base_tag="1.21.0"
-        tags=( "1.21.0-alpine" "1.21.0-mainline" "mainline" )
+        tags=( "1.21.0-alpine" "1.21.0-mainline" "1.21" "1" "mainline" "latest" )
         for tag in "${tags[@]}"; do
             push_tags
         done
         ;;
     "1.20.1")
         base_tag="1.20.1"
-        tags=( "1.20.1-alpine" "1.20.1-stable" "stable" "latest" )
+        tags=( "1.20.1-alpine" "1.20.1-stable" "1.20" "stable" )
         for tag in "${tags[@]}"; do
             push_tags
         done
