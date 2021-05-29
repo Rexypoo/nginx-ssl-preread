@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Add multiple tags to an image with Docker Hub automated builds
+# Credit to Nigel Brown
+# https://windsock.io/automated-docker-image-builds-with-multiple-tags/
+
+set -e
+
+echo "Checking for additional tags related to $SOURCE_BRANCH"
+
+push_tags () {
+    echo "Tagging ${tag} from ${IMAGE_NAME}"
+    docker tag ${DOCKER_REPO}:${base_tag} ${DOCKER_REPO}:${tag}
+    docker push ${DOCKER_REPO}:${tag}
+}
+
+# Tag and push image for each additional tag
+case $SOURCE_BRANCH in
+    "1.21.0")
+        base_tag="1.21.0"
+        tags=( "1.21.0-alpine" "1.21.0-mainline" "mainline" )
+        for tag in "${tags[@]}"; do
+            push_tags
+        done
+        ;;
+    "1.20.1")
+        base_tag="1.20.1"
+        tags=( "1.20.1-alpine" "1.20.1-stable" "stable" "latest" )
+        for tag in "${tags[@]}"; do
+            push_tags
+        done
+        ;;
+    "1.17.8")
+        base_tag="1.17.8"
+        tags=( "1.17.8-alpine" )
+        for tag in "${tags[@]}"; do
+            push_tags
+        done
+        ;;
+    *)
+        :
+        ;;
+esac
+
