@@ -1,4 +1,4 @@
-FROM nginx:1.21.0-alpine AS builder
+FROM nginx:1.21.3-alpine AS builder
 
 # Download sources
 RUN wget "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz

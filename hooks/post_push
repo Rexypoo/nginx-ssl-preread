@@ -15,9 +15,16 @@ push_tags () {
 
 # Tag and push image for each additional tag
 case $SOURCE_BRANCH in
+    "1.21.3")
+        base_tag="1.21.3"
+        tags=( "1.21.3-alpine" "1.21.3-mainline" "1.21" "1" "mainline" "latest" )
+        for tag in "${tags[@]}"; do
+            push_tags
+        done
+        ;;
     "1.21.0")
         base_tag="1.21.0"
-        tags=( "1.21.0-alpine" "1.21.0-mainline" "1.21" "1" "mainline" "latest" )
+        tags=( "1.21.0-alpine" )
         for tag in "${tags[@]}"; do
             push_tags
         done
